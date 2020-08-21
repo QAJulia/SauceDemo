@@ -29,6 +29,8 @@ public class ProductsPage {
         driver.findElement(By.cssSelector(".btn_primary.btn_inventory"));
         driver.findElements(By.cssSelector(".btn_secondary.btn_inventory"));
         driver.findElement(By.cssSelector(".inventory_details_back_button"));
+        driver.findElement(By.cssSelector(".inventory_details_price"))
+        driver.findElement(By.cssSelector(".inventory_details_name"))
 
      */
 
@@ -81,8 +83,8 @@ public class ProductsPage {
         elements.get(5).findElement(By.cssSelector(".inventory_item_name")).click();
         String backButton = driver.findElement(By.cssSelector(".inventory_details_back_button")).getTagName();
         Assert.assertEquals(backButton, "button");
-        System.out.println(driver.findElement(By.cssSelector(".inventory_item_name")).getText() + ": " +
-                driver.findElement(By.cssSelector(".inventory_item_price")).getText());
+        System.out.println(driver.findElement(By.cssSelector(".inventory_details_name")).getText() + ": " +
+                driver.findElement(By.cssSelector(".inventory_details_price")).getText());
         driver.findElement(By.cssSelector(".btn_primary.btn_inventory")).click();
         driver.findElements(By.cssSelector(".btn_secondary.btn_inventory"));
     }

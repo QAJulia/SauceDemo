@@ -19,11 +19,13 @@ public class CartPage {
 
         driver.findElement(By.xpath("//a[text()='Continue Shopping']")).click();
         driver.findElement(By.cssSelector(".btn_primary.btn_inventory")).click();
-        driver.findElement(By.cssSelector("path[fill='currentColor']")).click();
+        driver.findElement(By.xpath("//*[@id = 'shopping_cart_container']/a")).click();
         driver.findElements(By.cssSelector(".inventory_item_name"));
         driver.findElements(By.cssSelector(".btn_secondary.cart_button"));
         driver.findElement(By.cssSelector(".checkout_button"));
 
         driver.quit();
+
+        //*[@id="shopping_cart_container"]/a/svg/path
     }
 }

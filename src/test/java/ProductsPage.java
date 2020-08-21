@@ -21,7 +21,7 @@ public class ProductsPage {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
-        driver.findElement(By.cssSelector("path[fill='currentColor']"));
+        driver.findElement(By.xpath("//*[@id = 'shopping_cart_container']/a"));
 
         driver.findElement(By.xpath("//button[text()='Open Menu']"));
         driver.findElement(By.xpath("//button[text()='Close Menu']"));

@@ -1,0 +1,50 @@
+package tests;
+
+import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
+
+public class CartTest extends BaseTest{
+
+    @Test
+    public void productShouldBeAddedIntoCart(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        cartPage.openPage();
+        assertEquals(cartPage.productInTheList(), "Sauce Labs Backpack");
+    }
+
+    @Test
+    public void threeProductShouldBeAddedIntoCart(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addProduct("Sauce Labs Bike Light");
+        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
+        cartPage.openPage();
+        assertEquals(cartPage.sizeOfCartList(), 3);
+    }
+
+    @Test
+    public void removeProductFromCart(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addProduct("Sauce Labs Bike Light");
+        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
+        cartPage.openPage();
+        cartPage.removeProduct("Sauce Labs Backpack");
+        assertEquals(cartPage.sizeOfCartList(), 2);
+    }
+
+    @Test
+    public void continueShopping(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        cartPage.openPage();
+        cartPage.continueShopping();
+        assertEquals(productsPage.secondPageUniqueLocator(),"div");
+    }
+
+}

@@ -6,14 +6,28 @@ import static org.testng.Assert.assertEquals;
 public class ProductsTest extends BaseTest{
 
     @Test
-    public void sortProductsByName() {
+    public void sortProductsByNameAZ() {
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
         assertEquals(productsPage.sortProducts("az"),"Sauce Labs Backpack");
     }
 
     @Test
-    public void sortProductsByPrice() {
+    public void sortProductsByNameZA() {
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        assertEquals(productsPage.sortProducts("za"),"Test.allTheThings() T-Shirt (Red)");
+    }
+
+    @Test
+    public void sortProductsByPriceLowToHigh() {
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        assertEquals(productsPage.sortProducts("lohi"),"Sauce Labs Onesie");
+    }
+
+    @Test
+    public void sortProductsByPriceHighToLow() {
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
         assertEquals(productsPage.sortProducts("hilo"),"Sauce Labs Fleece Jacket");

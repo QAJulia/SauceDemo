@@ -40,4 +40,8 @@ public class CartPage extends BasePage {
     public void checkOut(){
         driver.findElement(CHECKOUT_BUTTON).click();
     }
+
+    public void refreshPage(){
+        driver.navigate().refresh();
+    }
 }

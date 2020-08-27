@@ -38,6 +38,34 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+    public void clearCart(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addProduct("Sauce Labs Bike Light");
+        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
+        cartPage.openPage();
+        productsPage.openMenu();
+        productsPage.resetAppState();
+        productsPage.closeMenu();
+        productsPage.resetAppState();
+        cartPage.refreshPage();
+        assertEquals(cartPage.sizeOfCartList(),0);
+    }
+
+    @Test
+    public void goToAllItemsPageThroughTheMenu(){
+        loginPage.openPage();
+        loginPage.login(USERNAME, PASSWORD);
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addProduct("Sauce Labs Bike Light");
+        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
+        cartPage.openPage();
+        productsPage.openMenu();
+        assertEquals(productsPage.allItems(),"div");
+    }
+
+    @Test
     public void continueShopping(){
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
@@ -46,5 +74,4 @@ public class CartTest extends BaseTest{
         cartPage.continueShopping();
         assertEquals(productsPage.secondPageUniqueLocator(),"div");
     }
-
 }

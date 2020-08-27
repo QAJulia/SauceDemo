@@ -61,6 +61,11 @@ public class ProductsPage extends BasePage{
         driver.findElement(ABOUT).click();
         return driver.findElement(By.cssSelector(".button.is-rounded.is-secondary")).getTagName();
     }
+
+    public String allItems(){
+        driver.findElement(ITEM_MENU).click();
+        return driver.findElement(UNIQUE_LOCATOR).getTagName();
+    }
     public String logout(){
         driver.findElement(LOGOUT).click();
         return driver.findElement(LoginPage.LOGIN_BUTTON).getTagName();
@@ -72,5 +77,9 @@ public class ProductsPage extends BasePage{
 
     public void goToCart(){
         driver.findElement(SHOPPING_CART_ICON).click();
+    }
+
+    public void resetAppState(){
+        driver.findElement(RESET_APP_STATE).click();
     }
 }

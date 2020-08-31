@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CartTest extends BaseTest{
 
@@ -48,7 +49,6 @@ public class CartTest extends BaseTest{
         productsPage.openMenu();
         productsPage.resetAppState();
         productsPage.closeMenu();
-        productsPage.resetAppState();
         cartPage.refreshPage();
         assertEquals(cartPage.sizeOfCartList(),0);
     }
@@ -62,7 +62,8 @@ public class CartTest extends BaseTest{
         productsPage.addProduct("Sauce Labs Bolt T-Shirt");
         cartPage.openPage();
         productsPage.openMenu();
-        assertEquals(productsPage.allItems(),"div");
+        productsPage.allItems();
+        assertTrue(productsPage.isPageOpened());
     }
 
     @Test
@@ -72,6 +73,6 @@ public class CartTest extends BaseTest{
         productsPage.addProduct("Sauce Labs Backpack");
         cartPage.openPage();
         cartPage.continueShopping();
-        assertEquals(productsPage.secondPageUniqueLocator(),"div");
+        assertTrue(productsPage.isPageOpened());
     }
 }

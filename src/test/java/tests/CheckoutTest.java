@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest {
 
@@ -14,7 +15,7 @@ public class CheckoutTest extends BaseTest {
         cartPage.openPage();
         cartPage.checkOut();
         checkoutPage.informationCheckout(FIRST_NAME, LAST_NAME, ZIP);
-        assertEquals(checkoutPage.checkoutPageUniqueLocator(), "div");
+        assertTrue(checkoutPage.isPageOpened());
     }
 
     @Test
@@ -51,6 +52,6 @@ public class CheckoutTest extends BaseTest {
         cartPage.checkOut();
         checkoutPage.informationCheckout(FIRST_NAME, LAST_NAME, ZIP);
         checkoutPage.finishOrder();
-        assertEquals(checkoutPage.finishPageUniqueLocator(), "div");
+        assertTrue(checkoutPage.isFinishPageOpened());
     }
 }

@@ -2,6 +2,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
@@ -56,19 +57,26 @@ public class ProductsPage extends BasePage{
     public void openMenu(){
         driver.findElement(OPEN_MENU).click();
     }
+    
+    public boolean isPageOpened(){
+        return driver.findElement(UNIQUE_LOCATOR).isDisplayed();
+    }
 
-    public String goToAboutPage(){
+//    public void waitForPageLoad(){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(UNIQUE_LOCATOR));
+//    }
+
+    public boolean isAboutPageOpened(){
         driver.findElement(ABOUT).click();
-        return driver.findElement(By.cssSelector(".button.is-rounded.is-secondary")).getTagName();
+        return driver.findElement(By.cssSelector(".button.is-rounded.is-secondary")).isDisplayed();
     }
 
-    public String allItems(){
+    public void allItems(){
         driver.findElement(ITEM_MENU).click();
-        return driver.findElement(UNIQUE_LOCATOR).getTagName();
     }
-    public String logout(){
+
+    public void logout(){
         driver.findElement(LOGOUT).click();
-        return driver.findElement(LoginPage.LOGIN_BUTTON).getTagName();
     }
 
     public void closeMenu(){

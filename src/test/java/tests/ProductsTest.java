@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class ProductsTest extends BaseTest{
 
@@ -38,7 +39,7 @@ public class ProductsTest extends BaseTest{
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
         productsPage.displayInformationAboutProduct("Sauce Labs Backpack");
-        assertEquals(productsPage.secondPageUniqueLocator(), "div");
+        assertTrue(productsPage.isPageOpened());
     }
 
     @Test
@@ -46,7 +47,7 @@ public class ProductsTest extends BaseTest{
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
         productsPage.openMenu();
-        assertEquals(productsPage.goToAboutPage(), "a");
+        assertTrue(productsPage.isAboutPageOpened());
     }
 
     @Test
@@ -54,6 +55,7 @@ public class ProductsTest extends BaseTest{
         loginPage.openPage();
         loginPage.login(USERNAME, PASSWORD);
         productsPage.openMenu();
-        assertEquals(productsPage.logout(), "input");
+        productsPage.logout();
+        assertTrue(loginPage.isPageOpened());
     }
 }

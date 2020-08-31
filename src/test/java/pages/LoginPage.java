@@ -2,6 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage{
 
@@ -16,6 +18,11 @@ public class LoginPage extends BasePage{
 
     public void openPage(){
         driver.get("https://www.saucedemo.com");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+    }
+
+    public boolean isPageOpened(){
+        return driver.findElement(LoginPage.LOGIN_BUTTON).isDisplayed();
     }
 
     public void login(String username, String password){

@@ -30,8 +30,8 @@ public class CheckoutPage extends BasePage{
         driver.findElement(CONTINUE_BUTTON).click();
     }
 
-    public String checkoutPageUniqueLocator(){
-        return driver.findElement(SAUCE_CARD).getTagName();
+    public boolean isPageOpened(){
+        return driver.findElement(SAUCE_CARD).isDisplayed();
     }
 
     public String getErrorMessage(){
@@ -42,7 +42,7 @@ public class CheckoutPage extends BasePage{
         driver.findElement(FINISH_BUTTON).click();
     }
 
-    public String finishPageUniqueLocator(){
-        return driver.findElement(FINISH_TEXT).getTagName();
+    public boolean isFinishPageOpened(){
+        return driver.findElement(FINISH_TEXT).isDisplayed();
     }
 }

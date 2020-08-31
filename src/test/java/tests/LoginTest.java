@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest{
 
@@ -9,7 +10,7 @@ public class LoginTest extends BaseTest{
     public void correctLogin(){
         loginPage.openPage();
         loginPage.login(USERNAME,PASSWORD);
-        assertEquals(productsPage.secondPageUniqueLocator(), "div");
+        assertTrue(productsPage.isPageOpened());
     }
 
     @Test

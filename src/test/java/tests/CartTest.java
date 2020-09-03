@@ -2,77 +2,91 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class CartTest extends BaseTest{
 
     @Test
     public void productShouldBeAddedIntoCart(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        cartPage.openPage();
-        assertEquals(cartPage.productInTheList(), "Sauce Labs Backpack");
+        String cartList = loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .goToCart()
+                .isPageOpened()
+                .productInTheList();
+        assertEquals(cartList, "Sauce Labs Backpack");
     }
 
     @Test
     public void threeProductShouldBeAddedIntoCart(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        assertEquals(cartPage.sizeOfCartList(), 3);
+        int cartListSize = loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .addProduct("Sauce Labs Bike Light")
+                .addProduct("Sauce Labs Bolt T-Shirt")
+                .goToCart()
+                .isPageOpened()
+                .sizeOfCartList();
+        assertEquals(cartListSize, 3);
     }
 
     @Test
     public void removeProductFromCart(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        cartPage.removeProduct("Sauce Labs Backpack");
-        assertEquals(cartPage.sizeOfCartList(), 2);
+        int cartListSize = loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .addProduct("Sauce Labs Bike Light")
+                .addProduct("Sauce Labs Bolt T-Shirt")
+                .goToCart()
+                .isPageOpened()
+                .removeProduct("Sauce Labs Backpack")
+                .sizeOfCartList();
+        assertEquals(cartListSize, 2);
     }
 
     @Test
     public void clearCart(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        productsPage.openMenu();
-        productsPage.resetAppState();
-        productsPage.closeMenu();
-        cartPage.refreshPage();
-        assertEquals(cartPage.sizeOfCartList(),0);
+        int cartListSize = loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .addProduct("Sauce Labs Bike Light")
+                .addProduct("Sauce Labs Bolt T-Shirt")
+                .goToCart()
+                .isPageOpened()
+                .openMenu()
+                .resetAppState()
+                .closeMenu()
+                .refreshPage()
+                .sizeOfCartList();
+        assertEquals(cartListSize,0);
     }
 
     @Test
     public void goToAllItemsPageThroughTheMenu(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        productsPage.openMenu();
-        productsPage.allItems();
-        assertTrue(productsPage.isPageOpened());
+        loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .addProduct("Sauce Labs Bike Light")
+                .addProduct("Sauce Labs Bolt T-Shirt")
+                .goToCart()
+                .isPageOpened()
+                .openMenu()
+                .allItems()
+                .isPageOpened();
     }
 
     @Test
     public void continueShopping(){
-        loginPage.openPage();
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProduct("Sauce Labs Backpack");
-        cartPage.openPage();
-        cartPage.continueShopping();
-        assertTrue(productsPage.isPageOpened());
+        loginPage
+                .openPage()
+                .login(USERNAME, PASSWORD)
+                .addProduct("Sauce Labs Backpack")
+                .goToCart()
+                .continueShopping()
+                .isPageOpened();
     }
 }

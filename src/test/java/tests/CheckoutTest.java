@@ -2,56 +2,81 @@ package tests;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest {
 
     @Test
     public void correctData(){
-        loginPage.openPage();
-        loginPage.login(USERNAME,PASSWORD);
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        cartPage.checkOut();
-        checkoutPage.informationCheckout(FIRST_NAME, LAST_NAME, ZIP);
-        assertTrue(checkoutPage.isPageOpened());
+        loginPage
+                .openPage()
+                .login(USERNAME,PASSWORD)
+                .addProduct("Sauce Labs Bike Light")
+                .goToCart()
+                .isPageOpened()
+                .checkOut()
+                .isPageOpened()
+                .informationOnCheckoutPage(FIRST_NAME, LAST_NAME, ZIP)
+                .isSecondCheckoutPageOpened();
     }
 
     @Test
-    public void emptyFields(){
-        loginPage.openPage();
-        loginPage.login(USERNAME,PASSWORD);
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        cartPage.checkOut();
-        checkoutPage.informationCheckout("", "", "");
-        assertEquals(checkoutPage.getErrorMessage(),"Error: First Name is required");
+    public void emptyFirstNameField(){
+        String errorMessage = loginPage
+                .openPage()
+                .login(USERNAME,PASSWORD)
+                .addProduct("Sauce Labs Bike Light")
+                .goToCart()
+                .isPageOpened()
+                .checkOut()
+                .isPageOpened()
+                .wrongInformationOnCheckoutPage("", "qwerty", "12345")
+                .getErrorMessage();
+        assertEquals(errorMessage,"Error: First Name is required");
     }
 
     @Test
-    public void incorrectData(){
-        loginPage.openPage();
-        loginPage.login(USERNAME,PASSWORD);
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        cartPage.checkOut();
-        checkoutPage.informationCheckout("1", "2", "qwerty");
-        assertEquals(checkoutPage.getErrorMessage(),"Error: Incorrect Information");
+    public void emptyLastNameField(){
+        String errorMessage = loginPage
+                .openPage()
+                .login(USERNAME,PASSWORD)
+                .addProduct("Sauce Labs Bike Light")
+                .goToCart()
+                .isPageOpened()
+                .checkOut()
+                .isPageOpened()
+                .wrongInformationOnCheckoutPage("Qwerty", "", "12345")
+                .getErrorMessage();
+        assertEquals(errorMessage,"Error: Last Name is required");
+    }
+
+    @Test
+    public void emptyZipField(){
+        String errorMessage = loginPage
+                .openPage()
+                .login(USERNAME,PASSWORD)
+                .addProduct("Sauce Labs Bike Light")
+                .goToCart()
+                .isPageOpened()
+                .checkOut()
+                .isPageOpened()
+                .wrongInformationOnCheckoutPage("Qwerty", "qwerty", "")
+                .getErrorMessage();
+        assertEquals(errorMessage,"Error: Postal Code is required");
     }
 
     @Test
     public void finishOrder(){
-        loginPage.openPage();
-        loginPage.login(USERNAME,PASSWORD);
-        productsPage.addProduct("Sauce Labs Bike Light");
-        productsPage.addProduct("Sauce Labs Bolt T-Shirt");
-        cartPage.openPage();
-        cartPage.checkOut();
-        checkoutPage.informationCheckout(FIRST_NAME, LAST_NAME, ZIP);
-        checkoutPage.finishOrder();
-        assertTrue(checkoutPage.isFinishPageOpened());
+        loginPage
+                .openPage()
+                .login(USERNAME,PASSWORD)
+                .addProduct("Sauce Labs Bolt T-Shirt")
+                .goToCart()
+                .isPageOpened()
+                .checkOut()
+                .isPageOpened()
+                .informationOnCheckoutPage(FIRST_NAME, LAST_NAME,ZIP)
+                .isSecondCheckoutPageOpened()
+                .completeCheckout()
+                .isFinishPageOpened();
     }
 }

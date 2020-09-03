@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+
 import java.util.List;
 
 public class ProductsPage extends BasePage{
@@ -33,12 +35,21 @@ public class ProductsPage extends BasePage{
         super(driver);
     }
 
-    public void addProduct(String productName){
-        driver.findElement(By.xpath(String.format(productLocator, productName))).click();
+    public ProductsPage openPage() {
+        driver.get("https://www.saucedemo.com/inventory.html");
+        isPageOpened();
+        return this;
     }
 
-    public String secondPageUniqueLocator(){
-        return driver.findElement(ProductsPage.UNIQUE_LOCATOR).getTagName();
+    public ProductsPage isPageOpened(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(UNIQUE_LOCATOR));
+        Assert.assertTrue(driver.findElement(UNIQUE_LOCATOR).isDisplayed());
+        return this;
+    }
+
+    public ProductsPage addProduct(String productName){
+        driver.findElement(By.xpath(String.format(productLocator, productName))).click();
+        return this;
     }
 
     public String sortProducts(String value){
@@ -48,46 +59,41 @@ public class ProductsPage extends BasePage{
         return elements.get(0).findElement(INVENTORY_ITEM_NAME).getText();
     }
 
-    public void displayInformationAboutProduct(String product){
+    public ProductsPage displayInformationAboutProduct(String product){
         driver.findElement(By.xpath(String.format(nameOfTheProduct, product))).click();
         System.out.println(driver.findElement(INVENTORY_DETAILS_NAME).getText() + ": " + driver.findElement(INVENTORY_DETAILS_PRICE).getText());
         driver.findElement(BACK_BUTTON).click();
+        return this;
     }
 
-    public void openMenu(){
+    public ProductsPage openMenu(){
         driver.findElement(OPEN_MENU).click();
-    }
-    
-    public boolean isPageOpened(){
-        return driver.findElement(UNIQUE_LOCATOR).isDisplayed();
+        return this;
     }
 
-//    public void waitForPageLoad(){
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(UNIQUE_LOCATOR));
-//    }
+    public ProductsPage closeMenu(){
+        driver.findElement(CLOSE_MENU).click();
+        return this;
+    }
 
     public boolean isAboutPageOpened(){
         driver.findElement(ABOUT).click();
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".button.is-rounded.is-secondary")));
         return driver.findElement(By.cssSelector(".button.is-rounded.is-secondary")).isDisplayed();
     }
 
-    public void allItems(){
+    public ProductsPage allItems(){
         driver.findElement(ITEM_MENU).click();
+        return this;
     }
 
-    public void logout(){
+    public LoginPage logout(){
         driver.findElement(LOGOUT).click();
+        return new LoginPage(driver);
     }
 
-    public void closeMenu(){
-        driver.findElement(CLOSE_MENU).click();
-    }
-
-    public void goToCart(){
+    public CartPage goToCart(){
         driver.findElement(SHOPPING_CART_ICON).click();
-    }
-
-    public void resetAppState(){
-        driver.findElement(RESET_APP_STATE).click();
+        return new CartPage(driver);
     }
 }

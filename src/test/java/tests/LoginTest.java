@@ -10,7 +10,7 @@ public class LoginTest extends BaseTest{
     public void correctLogin(){
         loginPage
                 .openPage()
-                .login(USERNAME, PASSWORD)
+                .login(System.getProperty("username"), System.getProperty("password"))
                 .isPageOpened();
     }
 

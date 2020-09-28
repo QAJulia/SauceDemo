@@ -1,4 +1,5 @@
 package pages;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,6 +42,7 @@ public class ProductsPage extends BasePage{
         return this;
     }
 
+    @Step("Проверка, открылась ли страница со списком товаров")
     public ProductsPage isPageOpened(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(UNIQUE_LOCATOR));
         Assert.assertTrue(driver.findElement(UNIQUE_LOCATOR).isDisplayed());

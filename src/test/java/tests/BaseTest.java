@@ -25,9 +25,9 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp(){
-        System.setProperty("webdriver.opera.driver", "src/test/resources/operadriver.exe");
-        driver = new OperaDriver();
-        //driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
+        //System.setProperty("webdriver.opera.driver", "src/test/resources/operadriver.exe");
+        //driver = new OperaDriver();
+        driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);

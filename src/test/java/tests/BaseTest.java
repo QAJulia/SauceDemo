@@ -31,7 +31,7 @@ public class BaseTest {
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {
             Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
-
+            System.out.println(ex.getLocalizedMessage());
         }
         String variable = "driver";
         System.out.println("Setting driver into context with variable name " + variable);

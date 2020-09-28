@@ -26,21 +26,30 @@ public class BaseTest {
     public final static String ZIP = "12345";
 
     @BeforeMethod
-    public void createDriver(ITestContext context) {
+//    public void createDriver(ITestContext context) {
+//        try {
+//            driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
+//        } catch (SessionNotCreatedException ex) {
+//            Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
+//        }
+//        String variable = "driver";
+//        System.out.println("Setting driver into context with variable name " + variable);
+//        context.setAttribute(variable, driver);
+//    }
+
+    public void setUp(ITestContext context){
         try {
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {
             Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
-            System.out.println(ex.getLocalizedMessage());
         }
         String variable = "driver";
         System.out.println("Setting driver into context with variable name " + variable);
         context.setAttribute(variable, driver);
-    }
 
-    public void setUp(){
         //System.setProperty("webdriver.opera.driver", "src/test/resources/operadriver.exe");
         //driver = new OperaDriver();
+
         System.setProperty("webdriver.chrome.driver", "src/test/resources/webdrivers/linux/chromedriver");
         driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.manage().window().maximize();

@@ -36,6 +36,7 @@ public class ProductsPage extends BasePage{
         super(driver);
     }
 
+    @Step("Открыть страницу со списком товаров")
     public ProductsPage openPage() {
         driver.get("https://www.saucedemo.com/inventory.html");
         isPageOpened();
@@ -49,11 +50,13 @@ public class ProductsPage extends BasePage{
         return this;
     }
 
+    @Step("Добавление товаров в корзину")
     public ProductsPage addProduct(String productName){
         driver.findElement(By.xpath(String.format(productLocator, productName))).click();
         return this;
     }
 
+    @Step("Сортировка товаров")
     public String sortProducts(String value){
         Select select= new Select(driver.findElement(PRODUCT_SORT));
         select.selectByValue(value);
@@ -61,6 +64,7 @@ public class ProductsPage extends BasePage{
         return elements.get(0).findElement(INVENTORY_ITEM_NAME).getText();
     }
 
+    @Step("Отображение полной информации о товаре")
     public ProductsPage displayInformationAboutProduct(String product){
         driver.findElement(By.xpath(String.format(nameOfTheProduct, product))).click();
         System.out.println(driver.findElement(INVENTORY_DETAILS_NAME).getText() + ": " + driver.findElement(INVENTORY_DETAILS_PRICE).getText());
@@ -68,16 +72,19 @@ public class ProductsPage extends BasePage{
         return this;
     }
 
+    @Step("Открыть боковое меню")
     public ProductsPage openMenu(){
         driver.findElement(OPEN_MENU).click();
         return this;
     }
 
+    @Step("Закрыть боковое меню")
     public ProductsPage closeMenu(){
         driver.findElement(CLOSE_MENU).click();
         return this;
     }
 
+    @Step("Проверка, открылась ли страница About")
     public boolean isAboutPageOpened(){
         driver.findElement(ABOUT).click();
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".button.is-rounded.is-secondary")));
@@ -89,11 +96,13 @@ public class ProductsPage extends BasePage{
         return this;
     }
 
+    @Step("Разлогиниться")
     public LoginPage logout(){
         driver.findElement(LOGOUT).click();
         return new LoginPage(driver);
     }
 
+    @Step("Перейти в корзину")
     public CartPage goToCart(){
         driver.findElement(SHOPPING_CART_ICON).click();
         return new CartPage(driver);
